@@ -50,6 +50,25 @@ CREATE TABLE Scores (
   FOREIGN KEY (game_id) REFERENCES Games(id)
 );
 
+-- Inserting data into the Players table
+INSERT INTO Players (id, name, join_date)
+VALUES (1, 'Gandalf Grey', '2022-01-01'),
+       (2, 'Frodo Baggins', '2022-02-01'),
+       (3, 'Samwise Gamgee', '2022-03-01');
+
+-- Inserting data into the Games table
+INSERT INTO Games (id, title, genre)
+VALUES (1, 'Game 1', 'Action'),
+       (2, 'Game 2', 'Adventure'),
+       (3, 'Game 3', 'Strategy');
+
+-- Inserting data into the Scores table
+INSERT INTO Scores (id, player_id, game_id, score, date_played)
+VALUES (1, 1, 1, 100, '2022-01-02'),
+       (2, 1, 2, 80, '2022-01-03'),
+       (3, 2, 3, 90, '2022-02-03'),
+       (4, 2, 1, 120, '2022-03-01');
+
 -- Task 1: List All Players and Their Scores
 -- Write a query that uses an INNER JOIN to display 
 -- all players along with the games they have played 
@@ -98,7 +117,7 @@ LIMIT 1;
 
 SELECT *
 FROM Players
-WHERE join_date >= DATE_SUB(CURDATE(), INTERVAL 30 DAY);
+WHERE join_date >= NOW() - INTERVAL '30 days';
 
 -- Bonus Task: Players' Favorite Games  
 -- Use JOIN and GROUP BY to find out which game each player has 
