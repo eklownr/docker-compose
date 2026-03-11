@@ -1,3 +1,4 @@
+/* Create the playstation table */
 CREATE TABLE playstation (
     id SERIAL PRIMARY KEY,
     title VARCHAR,
@@ -6,6 +7,7 @@ CREATE TABLE playstation (
     genre VARCHAR
 );   
 
+-- Inserting data into the playstation table
 INSERT INTO playstation (title, year, developer, genre)
 VALUES 
 ('The Last of Us', 2013, 'Naughty Dog', 'adventure'),
@@ -19,6 +21,7 @@ VALUES
 ('Persona 5', 2016, 'Atlus', 'rpg'),
 ('Demon''s Souls', 2020, 'Bluepoint Games', 'action');   
 
+/* Update and Delete data from the playstation table */
 UPDATE playstation
 SET year = 2014
 WHERE title = 'The Last of Us';   
@@ -28,6 +31,8 @@ SELECT * FROM playstation;
 DELETE FROM playstation
 WHERE title = 'Persona 5';  
 
+
+/* Create the Players, Games and Scores tables */
 CREATE TABLE Players (
   id INTEGER PRIMARY KEY,
   name VARCHAR,
@@ -52,9 +57,9 @@ CREATE TABLE Scores (
 
 -- Inserting data into the Players table
 INSERT INTO Players (id, name, join_date)
-VALUES (1, 'Gandalf Grey', '2022-01-01'),
-       (2, 'Frodo Baggins', '2022-02-01'),
-       (3, 'Samwise Gamgee', '2022-03-01');
+VALUES (4, 'Gandalf Grey', '1922-01-01'),
+       (5, 'Frodo Baggins', '2022-02-01'),
+       (6, 'Samwise Gamgee', '2026-03-01');
 
 -- Inserting data into the Games table
 INSERT INTO Games (id, title, genre)
