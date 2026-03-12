@@ -30,7 +30,7 @@ SELECT * FROM playstation;
 
 DELETE FROM playstation
 WHERE title = 'Persona 5';  
-
+/***********************/
 
 /* Create the Players, Games and Scores tables */
 CREATE TABLE Players (
