@@ -57,9 +57,14 @@ CREATE TABLE Scores (
 
 -- Inserting data into the Players table
 INSERT INTO Players (id, name, join_date)
-VALUES (4, 'Gandalf Grey', '1922-01-01'),
+VALUES (1, 'Gimli Gloinson', '2022-01-01'),
+       (2, 'Legolas Thranduilion', '2022-02-01'),
+       (3, 'Pippin Took ', '2022-03-01'), 
+       (4, 'Gandalf Grey', '1922-01-01'),
        (5, 'Frodo Baggins', '2022-02-01'),
-       (6, 'Samwise Gamgee', '2026-03-01');
+       (6, 'Samwise Gamgee', '2026-03-01'),
+       (7, 'Aragorn Elessar', '2022-01-01'),
+       (8, 'Boromir son of Denethor', '2022-02-01');
 
 -- Inserting data into the Games table
 INSERT INTO Games (id, title, genre)
