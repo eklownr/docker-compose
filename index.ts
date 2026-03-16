@@ -1,10 +1,10 @@
-import Express from "express";
+import express from "express";
 import pg from "pg";
 import dotenv from "dotenv";
 dotenv.config();
 
-const app = Express();
-app.use(Express.json());
+const app = express();
+app.use(express.json());
 const { Pool } = pg;
 const PORT = process.env.PORT || 3000;
 
