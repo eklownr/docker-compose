@@ -126,7 +126,7 @@ app.get("/recent-players", async (req, res) => {
 		const query = `
         SELECT name FROM players
         WHERE join_date >= NOW() - INTERVAL '30 days'
-        ORDER BY created_at DESC 
+        ORDER BY join_date DESC 
     `;
 		const result = await pool.query(query);
 		res.json(result.rows);
