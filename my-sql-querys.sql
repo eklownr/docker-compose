@@ -32,12 +32,29 @@ DELETE FROM playstation
 WHERE title = 'Persona 5';  
 /***********************/
 
-/* Create the Players, Games and Scores tables */
+/* update the players table. nextval('players_id_seq'::regclass) */
+CREATE SEQUENCE players_id_seq;
+ALTER TABLE players ALTER COLUMN id SET DEFAULT nextval('players_id_seq');
+ALTER SEQUENCE players_id_seq OWNED BY players.id;   
+
+/* synk id */
+SELECT setval(pg_get_serial_sequence('players', 'id'), 
+(SELECT MAX(id) FROM players) + 1);   
+
+/* Create the Players, Games and Scores tables 
+
 CREATE TABLE Players (
   id INTEGER PRIMARY KEY,
   name VARCHAR,
   join_date DATE
 );
+*/
+
+CREATE TABLE players (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(255),
+  join_date DATE
+);   
 
 CREATE TABLE Games (
   id INTEGER PRIMARY KEY,

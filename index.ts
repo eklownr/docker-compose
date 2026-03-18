@@ -7,19 +7,35 @@ dotenv.config();
 const app = express();
 app.use(express.json());
 const { Pool } = pg;
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.SERVER_PORT;
 
 // Zod schemas
-const User = z.object({
-	name: z.string(),
+const EnvScema = z.object({
+	DB_USER: z.string(),
+	DB_PASS: z.string(),
+	DB_HOST: z.string(),
+	DB_NAME: z.string(),
+	DB_PORT: z.string().optional(),
 });
 
+const PlayerSchema = z.object({
+	name: z.string().min(3).max(30),
+	join_date: z.coerce.date(),
+});
+
+// Validate environment variables
+const validEnv = EnvScema.safeParse(process.env);
+if (!validEnv.success) {
+	throw new Error("Invalid environment variables");
+}
+
+const { DB_USER, DB_PASS, DB_HOST, DB_NAME } = validEnv.data;
+
 const pool = new Pool({
-	user: process.env.DB_USER,
-	password: process.env.DB_PASS,
-	host: process.env.DB_HOST,
-	database: process.env.DB_NAME,
-	port: 5432,
+	user: DB_USER,
+	password: DB_PASS,
+	host: DB_HOST,
+	database: DB_NAME,
 });
 
 // All players
@@ -27,6 +43,29 @@ app.get("/", async (req, res) => {
 	try {
 		const result = await pool.query("SELECT * FROM players");
 		res.json(result.rows);
+	} catch (err) {
+		if (err instanceof Error) {
+			res.status(500).send(err.message);
+		} else {
+			res.status(500).send("Something went wrong on the server");
+		}
+	}
+});
+
+// Add player, validate with Zod
+app.post("/player", async (req, res) => {
+	try {
+		if (!PlayerSchema.safeParse(req.body).success) {
+			return res.status(400).send("Invalid player data");
+		} else {
+			const { name, join_date } = req.body;
+			const result = await pool.query(
+				`INSERT INTO players
+				 (name, join_date) VALUES ($1, $2) RETURNING * `,
+				[name, join_date],
+			);
+			res.json(result.rows[0]);
+		}
 	} catch (err) {
 		if (err instanceof Error) {
 			res.status(500).send(err.message);
