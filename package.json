@@ -6,6 +6,7 @@
 	"type": "module",
 	"debug": "true",
 	"scripts": {
+		"lint": "eslint",
 		"dev": "nodemon index.ts",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
@@ -16,13 +17,19 @@
 	"dependencies": {
 		"dotenv": "^17.3.1",
 		"express": "^5.2.1",
+		"jiti": "^2.6.1",
 		"nodemon": "^3.1.14",
-		"pg": "^8.20.0"
+		"pg": "^8.20.0",
+		"zod": "^4.3.6"
 	},
 	"devDependencies": {
+		"@eslint/js": "^10.0.1",
 		"@types/express": "^5.0.6",
 		"@types/pg": "^8.18.0",
+		"eslint": "^10.0.3",
+		"globals": "^17.4.0",
 		"ts-node": "^10.9.2",
-		"typescript": "^5.9.3"
+		"typescript": "^5.9.3",
+		"typescript-eslint": "^8.57.1"
 	}
 }

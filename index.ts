@@ -1,5 +1,6 @@
 import express from "express";
 import pg from "pg";
+import * as z from "zod";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -7,6 +8,11 @@ const app = express();
 app.use(express.json());
 const { Pool } = pg;
 const PORT = process.env.PORT || 3000;
+
+// Zod schemas
+const User = z.object({
+	name: z.string(),
+});
 
 const pool = new Pool({
 	user: process.env.DB_USER,
