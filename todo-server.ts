@@ -30,21 +30,21 @@ let todos: todo[] = [
 	},
 ];
 
-// welcome message
+/* welcome message */
 app.get("/", (req, res) => {
 	res.send("Welcome to the todo server, use /todos to get all todos");
 });
 
-// Get all todos
+/* Get all todos */
 app.get("/todos", (req, res) => {
 	res.json(todos);
 });
 
-// Get a specific todo
+/* Get a specific todo */
 app.get("/todos/:id", (req, res) => {
 	const id = parseInt(req.params.id);
+	// Validate that id is a number
 	if (isNaN(id)) {
-		// Validera att id är ett nummer
 		return res.status(400).send("ID must be a number");
 	}
 	const todo = todos.find((t) => t.id === id);
@@ -55,28 +55,28 @@ app.get("/todos/:id", (req, res) => {
 	}
 });
 
-// Delete a todo
+/* Delete a todo */
 app.delete("/todos/:id", (req, res) => {
 	const id = parseInt(req.params.id, 10);
-
+	// Validate that id is a number
 	if (isNaN(id)) {
-		// Validera att id är ett nummer
 		return res.status(400).send("ID must be a number");
 	}
 	const lengthBefore = todos.length;
+	// Filter out the todo with the same id
 	todos = todos.filter((t) => t.id !== id);
 
+	// Check if any todo was deleted
 	if (todos.length === lengthBefore) {
-		// Kontrollera om något togs bort
 		return res.status(404).send(`Todo id ${id} not found`);
 	}
 	res.status(200).json({ message: `Todo id ${id} was deleted` });
 });
 
-// Create a todo
+/* Create a todo */
 app.post("/todos", (req, res) => {
 	const { task } = req.body;
-
+	// Validate without using zod
 	if (!task || typeof task !== "string" || task.trim() === "") {
 		return res
 			.status(400)
