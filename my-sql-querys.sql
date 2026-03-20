@@ -156,3 +156,11 @@ INNER JOIN Scores AS s ON p.id = s.player_id
 INNER JOIN Games AS g ON s.game_id = g.id
 GROUP BY p.name, g.title
 ORDER BY num_times_played DESC;
+
+-- scores AS s, players AS p, games AS g
+-- JOIN:a tabellerna players, games och scores:
+SELECT p.name, g.genre, s.date_played
+FROM scores s
+JOIN players p ON s.player_id = p.id
+JOIN games g ON s.game_id = g.id;
+
